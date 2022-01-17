@@ -3,9 +3,7 @@ package edu.dnslab.boardpractice.controller;
 import edu.dnslab.boardpractice.domain.Member;
 import edu.dnslab.boardpractice.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +14,27 @@ import java.util.List;
 public class BoardController {
     private final MemberRepository memberRepository;
 
-    @GetMapping("/list")
-    public List<Member> apiListPage(){
-        List<Member> member = new ArrayList<>();
-        memberRepository.findAll().forEach(i -> member.add(i));
-        return member;
+    @PostMapping("/write")
+    public Member addArticle(@RequestBody Member member){
+        return memberRepository.save(member);
     }
 
+    @PutMapping("/update")
+    public Member updateArticle(@RequestBody Member member){
+        return memberRepository.update(member);
+    }
+
+    @GetMapping("/article")
+    public Member findArticleById(@RequestParam int id){
+        return memberRepository.findById(id);
+    }
+    @GetMapping("/list")
+    public List<Member> allArticle(){
+        return memberRepository.findAll();
+    }
+
+    @DeleteMapping("/delete")
+    public String deleteArticleById(@RequestParam int id){
+        return memberRepository.deleteById(id);
+    }
 }
