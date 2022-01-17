@@ -17,11 +17,21 @@ public class MemberRepositoryImpl implements MemberRepository{
     private final JdbcTemplate jdbcTemplate;
 
     @Override
+    public Member update(Member member) {
+        return null;
+    }
+
+    @Override
     public Member save(Member member) {
         jdbcTemplate.update("insert into board(id, name, content) values(?, ?, ?)", member.getId(), member.getName(), member.getContent());
         return member;
 
 
+    }
+
+    @Override
+    public Member delete(Member member) {
+        return null;
     }
 
     @Override
@@ -37,6 +47,6 @@ public class MemberRepositoryImpl implements MemberRepository{
     }
 
     private Member dataRowMapper(ResultSet rs, int rowNum) throws SQLException {
-        return new Member(rs.getLong("id"), rs.getString("name"), rs.getString("content"));
+        return new Member(rs.getInt("id"), rs.getString("name"), rs.getString("content"));
     }
 }
