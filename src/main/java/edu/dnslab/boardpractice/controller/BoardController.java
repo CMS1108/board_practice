@@ -23,8 +23,8 @@ public class BoardController {
         return memberRepository.update(member);
     }
 
-    @GetMapping("/article")
-    public Member findArticleById(@RequestParam int id){
+    @GetMapping("/article/{id}")
+    public Member findArticleById(@PathVariable int id){
         return memberRepository.findById(id);
     }
     @GetMapping("/list")
@@ -32,8 +32,8 @@ public class BoardController {
         return memberRepository.findAll();
     }
 
-    @DeleteMapping("/delete")
-    public String deleteArticleById(@RequestParam int id){
+    @DeleteMapping("/delete/{id}")
+    public String deleteArticleById(@PathVariable int id){
         return memberRepository.deleteById(id);
     }
 }

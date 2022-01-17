@@ -40,7 +40,7 @@ public class MemberRepositoryImpl implements MemberRepository{
 
     @Override
     public Member findById(int id) {
-        return jdbcTemplate.queryForObject("select id, name, content from board where id = ?", this::dataRowMapper, id);
+        return jdbcTemplate.queryForObject("select * from board where id = ?", this::dataRowMapper, id);
     }
 
     private Member dataRowMapper(ResultSet rs, int rowNum) throws SQLException {
