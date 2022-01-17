@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판 예제</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="test.js" async></script>
+
+    <style>
+        body{
+            font-size : 1.1em;
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript" language="javascript">
+ 
+        $(document).ready(function(){
+                 
+                 
+            $.ajax({
+                     
+                type : "GET",
+                url : "ajaxData.jsp?type=1",
+                dataType : "json",
+                error : function(){
+                    alert('게시글 목록을 가져오는 데에 실패했습니다. 다시 시도해주세요.');
+                },
+                success : function(data){
+                    
+                }
+                     
+            });
+                 
+         
+        });
+    </script>
+</head>
+<body>
+    <h1>게시글 목록입니다.</h1>
+    <section id="container">
+        <form role="form" method="post" action="/board/write">
+            <table>
+                <tr><th>번호</th><th>제목</th></tr>
+            
+                
+            </table>
+        </form>
+    </section>
+    <a href="mainboard.html">다시 메인으로</a>
+    <script>
+
+    </script>
+</body>
+</html>
