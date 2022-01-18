@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>글 작성</title>
+    <title>작성 페이지</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <style>
         body{
@@ -12,53 +12,53 @@
             text-align: center;
         }
     </style>
-    <script type="text/javascript" language="javascript">
- 
-    $(document).ready(function(){
-        $(".text_submit_go").click(function(){        
-            var queryString = $('#submit_texts').serialize();
-                 $.ajax({
-                          
-                     type : "POST",
-                     url : "ajaxData.jsp?type=1",
-                     dataType : "json",
-                     data : {"key" : queryString},
-                     error : function(){
-                         alert('게시글을 업로드 하는데에 실패했습니다. 다시 시도해주세요.');
-                     },
-                     success : function(data){
-                        alert('게시글을 성공적으로 업로드하였습니다.');
-                     }
-                          
-                 });
-                });     
-              
-             });
-    </script>
+   
 </head>
 <body>
     <h1>글 작성</h1>
-    <class "textwirte">
-        <form action = "write_result" id = "submit_texts"> <!-- action 속성에는 데이터를 보낼 서버의 페이지 주소를 입력 -->
+    <form name="Form" id="formname1" style="margin:0px;">
+        <div>
+            <label for="ftitle">제목</label>
+            :
+            <input type="text" name="ftitle" id="title"/>
+        </div>
+         <div>
+            <label for="fcontents">내용</label>
+            :
+            <textarea id= "text_contents" name= "text_contents">여기에 내용을 작성해 주세요.</textarea>
+        </div>
+    </form>
 
-        <table>
-            <tr><td>제목</td>
-                <td><input type = "text" id= "text_title" name= "text_title"/></td>
-                </tr>
-                <b></b>
-                <tr><td>내용</td>
-                <td><textarea id= "text_contents" name= "text_contents"></textarea></td>
-                </tr>
-                <tr>
-                <td>
-                <div class = "text_submit_go">
-                    <button type = "submit" id="submit">작성</button> 
-                </div>
-                <button type = "reset" id = "reset">취소</button>
-                </td>
-                </tr>
-            </table>
-        </form>
-    </class>
+    <div class = "text_submit_go">
+        <button type = "button" id="submit">작성</button> 
+    </div>
+        <button type = "reset" id = "reset">취소</button>
+
+<script type="text/javascript" language="javascript">
+ 
+    $(document).ready(function(){
+    $(".text_submit_go").click(function(){        
+        $.ajax({
+                                  
+            type : "POST",
+            url : `http://192.168.0.43:8080/write`,
+            dataType : "json",
+            data : $("Form").serialize(),
+            error : function(){
+                alert('게시글을 업로드 하는데에 실패했습니다. 다시 시도해주세요.');
+                //$(location).attr('href', 'mainboard.html')
+                                
+                },
+            success : function(data){
+                alert('게시글을 성공적으로 업로드하였습니다.');
+                //$(location).attr('href', 'mainboard.html')
+                                
+                    }
+                                  
+                });
+            });     
+                      
+        });
+</script>     
 </body>
 </html>

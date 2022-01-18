@@ -4,19 +4,71 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>수정페이지</title>
+   
 </head>
 <body>
 <table>
     <h2>${}번 게시글</h2>
-
-    <tr><td>제목</td>
-    <td><input type = "text" id = "text_title" name = "text_title" value="${}" disabled = "disabled"/></td>
-    </tr>
-
-    <tr><td>내용</td>
-    <td><textarea id = "text_contents" name = "text_contents" disabled = "disabled">${}</textarea></td>
-    </tr>
+    <h1>글 수정</h1>
+    <form name="changeForm" id="formname2" style="margin:0px;">
+        <div>
+            <label for="changetitle">제목</label>
+            :
+            <input type="text" name="changetitle" id="title"/>
+        </div>
+         <div>
+            <label for="changecontents">내용</label>
+            :
+            <textarea id= "text_contents" name= "text_contents"></textarea>
+        </div>
+    </form>
+        <div class = "text_submit_go">
+            <button type = "button" id="submit">작성</button> 
+        </div>
+            <button type = "reset" id = "reset">취소</button>
+    
 </table>
+<script type="text/javascript" language="javascript">
+ 
+    $(document).ready(function(){
+        $(".text_change_go").click(function(){        
+                 $.ajax({
+                          
+                     type : "POST",
+                     url : `http://192.168.0.43:8080/update`,
+                     dataType : "json",
+                     data : $("changeForm").serialize(),
+                     error : function(){
+                         alert('게시글을 수정 하는데에 실패했습니다. 다시 시도해주세요.');
+                     },
+                     success : function(data){
+                        alert('게시글을 성공적으로 수정하였습니다.');
+                        $(location).attr('href', 'board_list.html')
+                        
+                     }
+                          
+                 });
+                });     
+        $(".text_remove_go").click(function(){        
+                  $.ajax({
+                          
+                     type : "POST",
+                     url : "ajaxData.jsp?type=1",
+                     dataType : "json",
+                     data : $(form).serialize(),
+                     error : function(){
+                         alert('게시글을 삭제 하는데에 실패했습니다. 다시 시도해주세요.');
+                     },
+                     success : function(data){
+                        alert('게시글을 성공적으로 삭제하였습니다.');
+                        $(location).attr('href', 'board_list.html')
+                        
+                     }
+                          
+                 });
+                });     
+             });
+    </script>
 </body>
 </html>

@@ -14,28 +14,7 @@
             text-align: center;
         }
     </style>
-    <script type="text/javascript" language="javascript">
- 
-        $(document).ready(function(){
-                 
-                 
-            $.ajax({
-                     
-                type : "GET",
-                url : "ajaxData.jsp?type=1",
-                dataType : "json",
-                error : function(){
-                    alert('게시글 목록을 가져오는 데에 실패했습니다. 다시 시도해주세요.');
-                },
-                success : function(data){
-                    
-                }
-                     
-            });
-                 
-         
-        });
-    </script>
+    
 </head>
 <body>
     <h1>게시글 목록입니다.</h1>
@@ -49,8 +28,29 @@
         </form>
     </section>
     <a href="mainboard.html">다시 메인으로</a>
-    <script>
+<script type="text/javascript" language="javascript">
+ 
+        $(document).ready(function(){
+                 
+                 
+            $.ajax({
 
-    </script>
+                url : `http://192.168.0.43:8080/list`,     
+                type : "GET",
+                dataType : "json",
+                error : function(){
+                    alert('게시글 목록을 가져오는 데에 실패했습니다. 다시 시도해주세요.');
+                 //   $(location).attr('href', 'mainboard.html'
+                },
+                success : function(data){
+                    
+                    console.log(data)
+                }
+                     
+            });
+                 
+         
+        });
+</script>
 </body>
 </html>
