@@ -15,6 +15,7 @@ import java.util.List;
 public class MemberRepositoryImpl implements MemberRepository{
     private final JdbcTemplate jdbcTemplate;
 
+
     @Override
     public Member update(Member member) {
         jdbcTemplate.update("update board set content=? where id=?", member.getContent(), member.getId());
