@@ -20,7 +20,7 @@
     <h1>게시글 목록입니다.</h1>
     <section id="container">
         <form role="form" method="post" action="/board/write">
-            <table>
+            <table class = "list_show">
                 <tr><th>번호</th><th>제목</th></tr>
             
                 
@@ -35,22 +35,47 @@
                  
             $.ajax({
 
-                url : `http://192.168.0.43:8080/list`,     
+                url : "agdf",     
                 type : "GET",
                 dataType : "json",
+                data : $("form").serialize(),
                 error : function(){
                     alert('게시글 목록을 가져오는 데에 실패했습니다. 다시 시도해주세요.');
-                 //   $(location).attr('href', 'mainboard.html'
-                },
+                    data = [
+                            {"id": 1, "name": "웰시코기", "content": "는 귀엽다"},
+                            {"id": 2, "name": "포메라니안", "content": "도 역시 귀엽다"},
+                            {"id": 3, "name": "푸들", "content": "말할것도없이 귀엽다"},
+                            {"id": 4, "name": "천이", "content": "보고싶다"}];
+                    $.each(data,function(key,value) {
+                        $('.list_show > tbody:last').append('<tr><td>'+value.id +'</td><td>' + value.name + '</td></tr>')
+                          
+                        $(document).on("click",".list_show",function(){
+                            
+                            location.href = "text_see.html?id=" + value.id +"&name=" + value.name +"&content=" + value.content;
+                                  });     
+           
+                            });
+                         },
                 success : function(data){
-                    
-                    console.log(data)
-                }
-                     
-            });
-                 
-         
-        });
+                    alert('게시글 목록입니다.');
+                    data = [
+                            {"id": 1, "name": "웰시코기", "content": "는 귀엽다"},
+                            {"id": 2, "name": "포메라니안", "content": "도 역시 귀엽다"},
+                            {"id": 3, "name": "푸들", "content": "말할것도없이 귀엽다"},
+                            {"id": 4, "name": "천이", "content": "보고싶다"}];
+                    $.each(data,function(key,value) {
+                        $('#list_show > tbody:last').append('<tr><td>'+value.id +'</td><td>' + value.name + '</td></tr>')
+                          
+                        $("#list_show").click(function(){       
+
+                            location.href = "text_see.html?id=" + value.id +"&name=" + value.name +"&content=" + value.content;
+                                  });     
+           
+                            });
+                    }
+                 });
+             });     
+                  
 </script>
 </body>
 </html>
