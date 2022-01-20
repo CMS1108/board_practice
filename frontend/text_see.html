@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <title>수정페이지</title>
    
 </head>
@@ -11,53 +12,65 @@
 <table>
     
     <h1>글 수정</h1>
-    <div>번 글</div>
+   
     <form name="changeForm" id="formname2" style="margin:0px;">
-        <div>
-            <label for="changetitle">제목</label>
-            :
-            <input type="text" name="changetitle" id="title" />
-        </div>
-         <div>
-            <label for="changecontents">내용</label>
-            :
-            <textarea id= "text_contents" name= "text_contents"></textarea>
-        </div>
-    </form>
-        <div class = "text_change_go">
-            <button type = "button" id="submit">수정</button> 
-        </div>
-        <div class = "text_removw_go">
-            <button type = "button" id="remove">삭제</button> 
-        </div>
+        <div id = "id"></div>
+            <div>
+                <label for="changetitle">제목</label>
+                :
+                <input type="text" name="name" id="title" />
+            </div>
+            <div>
+                <label for="changecontents">내용</label>
+                :
+                <textarea id= "text_contents" name= "content"></textarea>
+            </div>
+        </form>
+            <div class = "text_change_go">
+                <button type = "button" id="submit">수정</button> 
+            </div>
+            <div class = "text_remove_go">
+                <button type = "button" id="remove">삭제</button> 
+            </div>
+  
 </table>
 <script type="text/javascript" language="javascript">
- 
-    $(document).ready(function(){
+
     
-        $.ajax({
-            type : "GET",
-            url : `http://192.168.0.43:8080/updates`,
-            dataType : "json",
-            data : $("changeForm").serialize(),
-            error : function(){
-                alert('게시글을 수정 하는데에 실패했습니다. 다시 시도해주세요.');
-            },
-            success : function(data){
-                alert('게시글을 성공적으로 수정하였습니다.');
-                $(location).attr('href', 'board_list.html')
-                             
-                }
-            });
+    $(document).ready(function(){
+        console.log(document.getElementById('text_contents'));
+        let queryString = location.search;
+        const urlParams = new URLSearchParams(queryString);
+        var urlId = urlParams.get("id");
+        var urlName = urlParams.get("name");
+        var urlContent = urlParams.get("content");
+
+        document.getElementById("id").innerText = urlId+ " 번글";
+        document.getElementById("title").value = urlName;
+        document.getElementById("text_contents").value = urlContent;
+
+        
         $(".text_change_go").click(function(){        
+            let text_name = document.getElementById('title');
+			let text_content = document.getElementById('text_contents');
+            const sendData =  {
+						'name': text_name.value, 
+						'content': text_content.value,
+                        'id' : urlId
+					}
+          
+            const str = JSON.stringify(sendData);
+            console.log(str);
+            
                  $.ajax({
-                          
-                     type : "POST",
+                     contentType: 'application/json; charset=utf-8',    
+                     type : "PUT",
                      url : `http://192.168.0.43:8080/update`,
                      dataType : "json",
-                     data : $("changeForm").serialize(),
+                     data : str,
                      error : function(){
                          alert('게시글을 수정 하는데에 실패했습니다. 다시 시도해주세요.');
+                         
                      },
                      success : function(data){
                         alert('게시글을 성공적으로 수정하였습니다.');
@@ -67,14 +80,14 @@
                           
                  });
                 });     
-        $(".text_remove_go").click(function(){        
+        $(".text_remove_go").click(function(){      
+
                   $.ajax({
                           
-                     type : "POST",
-                     url : "ajaxData.jsp?type=1",
+                     type : "DELETE",
+                     url : `http://192.168.0.43:8080/delete/${urlId}`,
                      dataType : "json",
-                     data : $(form).serialize(),
-                     error : function(){
+                     error : function(e){
                          alert('게시글을 삭제 하는데에 실패했습니다. 다시 시도해주세요.');
                      },
                      success : function(data){

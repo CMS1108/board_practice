@@ -20,12 +20,12 @@
         <div>
             <label for="ftitle">제목</label>
             :
-            <input type="text" name="ftitle" id="title"/>
+            <input type="text" name="name" id="title"/>
         </div>
          <div>
             <label for="fcontents">내용</label>
             :
-            <textarea id= "text_contents" name= "text_contents"></textarea>
+            <textarea id= "text_contents" name= "content"></textarea>
         </div>
     </form>
 
@@ -35,26 +35,34 @@
             <button type = "reset" id = "reset">취소</button>
 
 <script type="text/javascript" language="javascript">
- 
+     
     $(document).ready(function(){
-        //let titletxt = $("#title").val()
+        
 
         $(".text_submit_go").click(function(){        
+           
+			let text_name = document.getElementById('title');
+			let text_content = document.getElementById('text_contents');
+            const sendData =  {
+						'name': text_name.value, 
+						'content': text_content.value,
+					}
+            const str = JSON.stringify(sendData)
+            
             $.ajax({
-                                    
+                contentType: 'application/json; charset=utf-8',
                 type : "POST",
                 url : `http://192.168.0.43:8080/write`,
                 dataType : "json",
-                data : $("Form").serialize(),
+                data : str,
                 error : function(){
                     alert('게시글을 업로드 하는데에 실패했습니다. 다시 시도해주세요.');
-                    //$(location).attr('href', 'mainboard.html')
-                                    
+                   
                     },
                 success : function(data){
                     alert('게시글을 성공적으로 업로드하였습니다.');
-                    //$(location).attr('href', 'mainboard.html')
-                                    
+                    $(location).attr('href', 'board_list.html');
+                   
                         }
                                     
                     });
