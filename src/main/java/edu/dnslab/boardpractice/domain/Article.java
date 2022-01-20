@@ -2,10 +2,9 @@ package edu.dnslab.boardpractice.domain;
 
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
-@lombok.Data
-@NoArgsConstructor
+@Getter
 @AllArgsConstructor
 public class Article {
     private int id;

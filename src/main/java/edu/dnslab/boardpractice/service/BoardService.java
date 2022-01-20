@@ -21,7 +21,6 @@ public class BoardService {
         return articleRepository.update(article);
     }
 
-
     public Article findArticleById(int id){
         return articleRepository.findById(id);
     }
@@ -30,8 +29,7 @@ public class BoardService {
         return articleRepository.findAll();
     }
 
-
-    public String deleteArticleById(int id){
+    public Boolean deleteArticleById(int id){
         return articleRepository.deleteById(id);
     }
 

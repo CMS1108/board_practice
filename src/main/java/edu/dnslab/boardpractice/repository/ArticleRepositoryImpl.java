@@ -29,9 +29,8 @@ public class ArticleRepositoryImpl implements ArticleRepository {
     }
 
     @Override
-    public String deleteById(int id) {
-        jdbcTemplate.update("delete from board where id = ?", id);
-        return "Deleted " + id;
+    public Boolean deleteById(int id) {
+        return jdbcTemplate.update("delete from board where id = ?", id) > 0;
     }
 
     @Override

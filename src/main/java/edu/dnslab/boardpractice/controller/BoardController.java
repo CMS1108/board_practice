@@ -34,7 +34,7 @@ public class BoardController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteArticleById(@PathVariable int id){
+    public Boolean deleteArticleById(@PathVariable int id){
         return boardService.deleteArticleById(id);
     }
 }
