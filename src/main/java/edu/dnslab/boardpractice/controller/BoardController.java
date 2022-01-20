@@ -1,7 +1,6 @@
 package edu.dnslab.boardpractice.controller;
 
-import edu.dnslab.boardpractice.domain.Member;
-import edu.dnslab.boardpractice.repository.MemberRepository;
+import edu.dnslab.boardpractice.domain.Article;
 import edu.dnslab.boardpractice.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -10,26 +9,27 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin
 @RequestMapping("/")
 public class BoardController {
     private final BoardService boardService;
 
     @PostMapping("/write")
-    public Member addArticle(@RequestBody Member member){
-        return boardService.addArticle(member);
+    public Article addArticle(@RequestBody Article article){
+        return boardService.addArticle(article);
     }
 
     @PutMapping("/update")
-    public Member updateArticle(@RequestBody Member member){
-        return boardService.updateArticle(member);
+    public Article updateArticle(@RequestBody Article article){
+        return boardService.updateArticle(article);
     }
 
     @GetMapping("/article/{id}")
-    public Member findArticleById(@PathVariable int id){
+    public Article findArticleById(@PathVariable int id){
         return boardService.findArticleById(id);
     }
     @GetMapping("/list")
-    public List<Member> allArticle(){
+    public List<Article> allArticle(){
         return boardService.allArticle();
     }
 

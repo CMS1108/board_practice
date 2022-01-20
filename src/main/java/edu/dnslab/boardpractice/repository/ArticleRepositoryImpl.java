@@ -1,7 +1,7 @@
 package edu.dnslab.boardpractice.repository;
 
 
-import edu.dnslab.boardpractice.domain.Member;
+import edu.dnslab.boardpractice.domain.Article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -12,20 +12,20 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class MemberRepositoryImpl implements MemberRepository{
+public class ArticleRepositoryImpl implements ArticleRepository {
     private final JdbcTemplate jdbcTemplate;
 
 
     @Override
-    public Member update(Member member) {
-        jdbcTemplate.update("update board set content=? where id=?", member.getContent(), member.getId());
-        return member;
+    public Article update(Article article) {
+        jdbcTemplate.update("update board set content=? where id=?", article.getContent(), article.getId());
+        return article;
     }
 
     @Override
-    public Member save(Member member) {
-        jdbcTemplate.update("insert into board(id, name, content) values(?, ?, ?)", member.getId(), member.getName(), member.getContent());
-        return member;
+    public Article save(Article article) {
+        jdbcTemplate.update("insert into board(id, name, content) values(?, ?, ?)", article.getId(), article.getName(), article.getContent());
+        return article;
     }
 
     @Override
@@ -35,16 +35,16 @@ public class MemberRepositoryImpl implements MemberRepository{
     }
 
     @Override
-    public List<Member> findAll() {
+    public List<Article> findAll() {
         return jdbcTemplate.query("select * from board", this::dataRowMapper);
     }
 
     @Override
-    public Member findById(int id) {
+    public Article findById(int id) {
         return jdbcTemplate.queryForObject("select * from board where id = ?", this::dataRowMapper, id);
     }
 
-    private Member dataRowMapper(ResultSet rs, int rowNum) throws SQLException {
-        return new Member(rs.getInt("id"), rs.getString("name"), rs.getString("content"));
+    private Article dataRowMapper(ResultSet rs, int rowNum) throws SQLException {
+        return new Article(rs.getInt("id"), rs.getString("name"), rs.getString("content"));
     }
 }

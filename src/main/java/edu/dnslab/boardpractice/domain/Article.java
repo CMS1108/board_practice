@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @lombok.Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member {
+public class Article {
     private int id;
     private String name;
     private String content;

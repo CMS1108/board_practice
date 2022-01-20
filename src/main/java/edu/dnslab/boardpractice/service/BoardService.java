@@ -1,8 +1,8 @@
 package edu.dnslab.boardpractice.service;
 
 
-import edu.dnslab.boardpractice.domain.Member;
-import edu.dnslab.boardpractice.repository.MemberRepository;
+import edu.dnslab.boardpractice.domain.Article;
+import edu.dnslab.boardpractice.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,28 +11,28 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class BoardService {
-    private final MemberRepository memberRepository;
+    private final ArticleRepository articleRepository;
 
-    public Member addArticle(Member member){
-        return memberRepository.save(member);
+    public Article addArticle(Article article){
+        return articleRepository.save(article);
     }
 
-    public Member updateArticle(Member member){
-        return memberRepository.update(member);
+    public Article updateArticle(Article article){
+        return articleRepository.update(article);
     }
 
 
-    public Member findArticleById(int id){
-        return memberRepository.findById(id);
+    public Article findArticleById(int id){
+        return articleRepository.findById(id);
     }
 
-    public List<Member> allArticle(){
-        return memberRepository.findAll();
+    public List<Article> allArticle(){
+        return articleRepository.findAll();
     }
 
 
     public String deleteArticleById(int id){
-        return memberRepository.deleteById(id);
+        return articleRepository.deleteById(id);
     }
 
 }
